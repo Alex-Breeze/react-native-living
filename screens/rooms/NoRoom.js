@@ -13,15 +13,34 @@ import {
 
 import empty_illustration from '../../img/empty-illustration.png'
 import add_button from '../../img/add-button.png'
+import { withNavigation } from '@exponent/ex-navigation';
 
+@withNavigation
 export default class NoRoom extends Component {
+
+  static route = {
+    navigationBar: {
+      backgroundColor: "rgba(0, 0, 0, 0.9)",
+      tintColor:'white'
+    },
+  }
+
+  constructor() {
+    super();
+    this.createRoom = this.createRoom.bind(this);
+  }
+
+  createRoom(){
+    this.props.navigator.push(Router.getRoute('createRoom'));
+  }
+
   render() {
     return (
         <View style={{flex:1,backgroundColor:'rgba(0, 0, 0, 0.9)',alignItems: 'center',}}>
           <Image source={empty_illustration} style={{marginTop:66}}/>
           <Text style={{marginTop:16,color:'rgba(255, 255, 255, 1)',fontSize:18}}>No broadcasting now</Text>
           <Text style={{marginTop:9.5,color:'rgba(255, 255, 255, 1)',fontSize:12}}>You can click below button to begin to live.</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.createRoom}>
             <Image source={add_button} style={{marginTop:63.5}}/>
           </TouchableOpacity>
         </View>
