@@ -37,12 +37,23 @@ export default class StreamingView extends Component {
       text: '...',
       focus: true,
       zoom: 1,
+      camera:'front'
     };
     this.stop = this.stop.bind(this);
+    this.toggleCamera = this.toggleCamera.bind(this);
   }
 
   stop(){
     this.props.navigator.pop();
+  }
+
+  toggleCamera(){
+    if(this.state.camera === 'front'){
+      this.setState({camera:'back'});
+    }else{
+      this.setState({camera:'front'});
+    }
+
   }
 
   render() {
@@ -71,6 +82,7 @@ export default class StreamingView extends Component {
                             encodingSize:StreamingConst.encodingSize._480
                           }}
               started={this.state.started}
+              camera={this.state.camera}
               onReady={()=>this.setState({text: "onReady"})} //onReady event
               onConnecting={()=>this.setState({text: "onConnecting"})} //onConnecting event
               onStreaming={()=>this.setState({text: "onStreaming"})} //onStreaming event
@@ -91,7 +103,7 @@ export default class StreamingView extends Component {
                 <Text style={{color:'white'}}>Stop Broadcasting</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.toggleCamera}>
               <View style={{backgroundColor:'white',borderRadius:20,justifyContent:'center',alignItems:'center',width:44,height:44,marginTop:12,marginBottom:12,}}>
                 <Image source={toggle_camera}/>
               </View>
