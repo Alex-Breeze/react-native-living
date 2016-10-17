@@ -22,9 +22,13 @@ import Pili, {
     StreamingConst
 } from 'react-native-pili';
 
-import { Button } from '@shoutem/ui';
+import { Divider } from '@shoutem/ui';
 
 import toggle_camera from '../img/toggle-camera.png';
+import audience from '../img/audience.png';
+import face from '../img/face.png';
+import set_icon from '../img/set-icon.png';
+import share from '../img/share.png';
 
 var zoom = 1;
 
@@ -37,21 +41,21 @@ export default class StreamingView extends Component {
       text: '...',
       focus: true,
       zoom: 1,
-      camera:'front'
+      camera: 'front'
     };
     this.stop = this.stop.bind(this);
     this.toggleCamera = this.toggleCamera.bind(this);
   }
 
-  stop(){
+  stop() {
     this.props.navigator.pop();
   }
 
-  toggleCamera(){
-    if(this.state.camera === 'front'){
-      this.setState({camera:'back'});
-    }else{
-      this.setState({camera:'front'});
+  toggleCamera() {
+    if (this.state.camera === 'front') {
+      this.setState({camera: 'back'});
+    } else {
+      this.setState({camera: 'front'});
     }
 
   }
@@ -104,10 +108,29 @@ export default class StreamingView extends Component {
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={this.toggleCamera}>
-              <View style={{backgroundColor:'white',borderRadius:20,justifyContent:'center',alignItems:'center',width:44,height:44,marginTop:12,marginBottom:12,}}>
+              <View
+                  style={{backgroundColor:'white',borderRadius:20,justifyContent:'center',alignItems:'center',width:44,height:44,marginTop:12,marginBottom:12,}}>
                 <Image source={toggle_camera}/>
               </View>
             </TouchableOpacity>
+          </View>
+          <View style={{top:height-44,height:44,width:width - 20,
+          position:'absolute',borderStyle:'solid',borderTopColor:'white',
+          marginLeft:10,marginRight:10,
+          borderTopWidth:1,
+          flexDirection:'row',
+          justifyContent:'space-between',
+          alignItems:'center'
+          }}>
+            <View style={{flexDirection:'row'}}>
+              <Image source={audience}/>
+              <Text style={{color:'white',backgroundColor:'transparent'}}>123</Text>
+            </View>
+            <View style={{flexDirection:'row'}}>
+              <Image source={face}/>
+              <Image source={set_icon}/>
+              <Image source={share}/>
+            </View>
           </View>
         </View>
     );
