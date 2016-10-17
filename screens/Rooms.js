@@ -17,8 +17,7 @@ import Rooms from './rooms/Rooms'
 export default class FirstTabScreen extends Component {
   static route = {
     navigationBar: {
-      title: 'About',
-      tintColor: "#000",
+      backgroundColor: "rgba(0, 0, 0, 0.9)",
     },
   }
 

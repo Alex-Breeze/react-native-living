@@ -23,8 +23,6 @@ export default class HomeScreen extends Component {
     return (
         <View style={styles.container}>
           <Text style={styles.title}>Air Apps</Text>
-
-          <StatusBar barStyle="default" />
         </View>
     );
   }
