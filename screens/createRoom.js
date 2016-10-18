@@ -9,7 +9,8 @@ import {
     StyleSheet,
     Alert,
     Image,
-    Dimensions
+    Dimensions,
+    KeyboardAvoidingView
 } from 'react-native';
 
 import cover_4 from '../img/4.jpg';
@@ -17,7 +18,6 @@ import close from '../img/close.png';
 
 var {width,height} = Dimensions.get('window');
 import { NavigationBar,TextInput,Button } from '@shoutem/ui';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { withNavigation } from '@exponent/ex-navigation';
 
 //@withNavigation
@@ -65,18 +65,15 @@ export default class CreateRoom extends Component {
   }
 
   render() {
+    var self = this;
     return (
         <View style={{flex: 1,backgroundColor:'rgba(0,0,0,0.9)'}}>
-          <NavigationBar
-              styleName="clear"
-              rightComponent={
-                <TouchableOpacity onPress={this._pop}>
-                    <Image source={close}/>
-                </TouchableOpacity>
-
-              }
-              />
-          <View>
+          <View style={{height:60,backgroundColor:'transparent',alignItems:'flex-end',justifyContent:'center',marginRight:10}}>
+            <TouchableOpacity onPress={self._pop} style={{height:40,width:40}}>
+              <Image source={close} />
+            </TouchableOpacity>
+          </View>
+          <KeyboardAvoidingView behavior="height">
             <TextInput
                 style={{marginTop:80,marginLeft:50,marginRight:50,backgroundColor:'transparent'}}
                 placeholder={'room name'}
@@ -85,7 +82,7 @@ export default class CreateRoom extends Component {
             <TouchableOpacity onPress={this.start}>
               <View
                   style={{
-                  top:height - 200,marginLeft:60,marginRight:60,height:44,backgroundColor:'rgba(237, 87, 87, 1)',
+                  marginTop:100,marginLeft:60,marginRight:60,height:44,backgroundColor:'rgba(237, 87, 87, 1)',
                   justifyContent:'center',alignItems:'center',
                   borderRadius:10
                   }}
@@ -93,8 +90,7 @@ export default class CreateRoom extends Component {
                 <Text style={{color:'white'}}>Begin Broadcasting</Text>
               </View>
             </TouchableOpacity>
-          </View>
-          <KeyboardSpacer/>
+          </KeyboardAvoidingView>
         </View>
     );
   }

@@ -11,10 +11,11 @@ import {
     Alert,
     Platform
 } from 'react-native';
-import NoRoom from './rooms/NoRoom'
-import Rooms from './rooms/Rooms'
 
-export default class FirstTabScreen extends Component {
+import Rooms from './rooms/Rooms'
+import { connect } from 'react-redux';
+
+class RoomsView extends Component {
   static route = {
     navigationBar: {
       backgroundColor: "rgba(0, 0, 0, 0.9)",
@@ -28,7 +29,7 @@ export default class FirstTabScreen extends Component {
   render() {
     return (
         <View style={{flex: 1}}>
-          <NoRoom />
+          <Rooms />
         </View>
     );
   }
@@ -44,3 +45,5 @@ const styles = StyleSheet.create({
     color: 'blue'
   }
 });
+
+export default connect()(RoomsView);

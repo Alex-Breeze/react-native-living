@@ -14,16 +14,10 @@ import {
 import empty_illustration from '../../img/empty-illustration.png'
 import add_button from '../../img/add-button.png'
 import { withNavigation } from '@exponent/ex-navigation';
+import { connect } from 'react-redux';
 
 @withNavigation
-export default class NoRoom extends Component {
-
-  static route = {
-    navigationBar: {
-      backgroundColor: "rgba(0, 0, 0, 0.9)",
-      tintColor:'white'
-    },
-  }
+class NoRoom extends Component {
 
   constructor() {
     super();
@@ -47,3 +41,5 @@ export default class NoRoom extends Component {
     )
   }
 }
+
+export default connect()(NoRoom);

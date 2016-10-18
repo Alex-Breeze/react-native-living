@@ -22,7 +22,7 @@ import Pili, {
     StreamingConst
 } from 'react-native-pili';
 
-import { Divider } from '@shoutem/ui';
+import { connect } from 'react-redux';
 
 import toggle_camera from '../img/toggle-camera.png';
 import audience from '../img/audience.png';
@@ -32,7 +32,7 @@ import share from '../img/share.png';
 
 var zoom = 1;
 
-export default class StreamingView extends Component {
+class StreamingView extends Component {
   constructor() {
     super();
     this.state = {
@@ -168,3 +168,5 @@ export default class StreamingView extends Component {
     });
   }
 }
+
+export default connect()(StreamingView);
