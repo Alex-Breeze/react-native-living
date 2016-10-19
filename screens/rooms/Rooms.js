@@ -122,7 +122,7 @@ var listViewcontentHeight = 0;
                                           //styleName="small rounded-corners"
                                           source={covers.next()}
                                         >
-                                        <Text style={{color:'white',fontSize:26,marginTop:32,marginLeft:16,marginBottom:100}}>{item.play.ORIGIN}</Text>
+                                        <Text style={{color:'white',fontSize:26,marginTop:32,marginLeft:16,marginBottom:100}}>{item.title}</Text>
                                          <View style={{flexDirection:'row',marginLeft:16,alignItems:'center'}}>
                                           <Image
                                             styleName="small-avatar"

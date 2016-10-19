@@ -64,7 +64,8 @@ class StreamingView extends Component {
     return (
         <View>
           <Streaming
-              rtmpURL={this.props.rooms.currentRoom.publish}
+              rtmpURL={"rtmp://pili-publish.pilitest.qiniucdn.com/pilitest/buhe_02?key=6eeee8a82246636e"}
+              //rtmpURL={this.props.rooms.currentRoom.publish}
               style={{
                       position:'absolute',
                       top:0,left:0,

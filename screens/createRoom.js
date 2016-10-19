@@ -38,6 +38,8 @@ class CreateRoom extends Component {
     }
     this._pop = this._pop.bind(this);
     this.start = this.start.bind(this);
+    this.createRoom = this.createRoom.bind(this);
+    this.onEnterRoomName = this.onEnterRoomName.bind(this);
   }
 
   _pop() {
@@ -53,6 +55,10 @@ class CreateRoom extends Component {
     this.start();
   }
 
+  onEnterRoomName(roomName){
+    this.setState({roomName:roomName});
+  }
+
   render() {
     var self = this;
     return (
@@ -66,11 +72,11 @@ class CreateRoom extends Component {
             <TextInput
                 style={{marginTop:80,marginLeft:50,marginRight:50,backgroundColor:'transparent'}}
                 placeholder={'room name'}
-                onTextChange={(roomName)=>{this.setState({roomName:roomName})}}
-                //value={this.state.roomName}
+                onChangeText={this.onEnterRoomName}
+                value={this.state.roomName}
                 />
 
-            <TouchableOpacity onPress={this.start}>
+            <TouchableOpacity onPress={this.createRoom}>
               <View
                   style={{
                   marginTop:100,marginLeft:60,marginRight:60,height:44,backgroundColor:'rgba(237, 87, 87, 1)',
@@ -106,8 +112,8 @@ const styles = StyleSheet.create({
 
 function bindAction(dispatch) {
   return {
-    createRoom: () => dispatch(createRoom()),
+    createRoom: (roomName) => dispatch(createRoom(roomName)),
   }
 }
 
-export default connect(bindAction)(CreateRoom);
+export default connect(null,bindAction)(CreateRoom);

@@ -29,8 +29,15 @@ export function fetchRoomsData(rooms) {
 export function createRoom(room) {
   return (dispatch) => {
 
+    dispatch({type:'PRE_CREATE_ROOM',title:room,body:JSON.stringify({title:room})});
+
     fetch(BASE_URL + '/pilipili', {
-      method: "POST"
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({title:room})
     })
         .then(res => res.json())
         .then(json => dispatch(createRoomData(json)));
