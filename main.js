@@ -28,16 +28,9 @@ import { connect } from 'react-redux';
 // it as the intiial route for a top-level StackNavigation
 
 class DrawerNavigationLayout extends React.Component {
-  static route = {
-    navigationBar: {
-      visible: false,
-    }
-  };
-
   render() {
     return (
         <NavigationProvider router={Router}>
-          <StatusBar hidden={true} />
           <DrawerNavigation
               id='main'
               initialItem='home'
