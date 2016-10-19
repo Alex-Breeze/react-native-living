@@ -19,30 +19,11 @@ import close from '../img/close.png';
 var {width,height} = Dimensions.get('window');
 import { NavigationBar,TextInput,Button } from '@shoutem/ui';
 import { withNavigation } from '@exponent/ex-navigation';
+import { connect } from 'react-redux';
 
-//@withNavigation
-//class Close extends React.Component {
-//
-//  constructor() {
-//    super();
-//    //this._pop = this._pop.bind(this);
-//  }
-//
-//  //_pop() {
-//  //  this.props.navigator.pop();
-//  //}
-//
-//  render() {
-//    return (
-//        <TouchableOpacity onPress={this.props.pop}>
-//          <Image source={close}/>
-//        </TouchableOpacity>
-//    )
-//  }
-//}
+import { rooms,createRoom } from '../actions/rooms';
 
-
-export default class CreateRoom extends Component {
+class CreateRoom extends Component {
   static route = {
     navigationBar: {
       visible: false,
@@ -52,6 +33,9 @@ export default class CreateRoom extends Component {
 
   constructor() {
     super();
+    this.state = {
+      roomName:''
+    }
     this._pop = this._pop.bind(this);
     this.start = this.start.bind(this);
   }
@@ -62,6 +46,11 @@ export default class CreateRoom extends Component {
 
   start(){
     this.props.navigator.push(Router.getRoute('streaming'));
+  }
+
+  createRoom(){
+    this.props.createRoom(this.state.roomName);
+    this.start();
   }
 
   render() {
@@ -77,6 +66,8 @@ export default class CreateRoom extends Component {
             <TextInput
                 style={{marginTop:80,marginLeft:50,marginRight:50,backgroundColor:'transparent'}}
                 placeholder={'room name'}
+                onTextChange={(roomName)=>{this.setState({roomName:roomName})}}
+                //value={this.state.roomName}
                 />
 
             <TouchableOpacity onPress={this.start}>
@@ -111,3 +102,12 @@ const styles = StyleSheet.create({
     resizeMode: 'cover', // or 'stretch'
   }
 });
+
+
+function bindAction(dispatch) {
+  return {
+    createRoom: () => dispatch(createRoom()),
+  }
+}
+
+export default connect(bindAction)(CreateRoom);

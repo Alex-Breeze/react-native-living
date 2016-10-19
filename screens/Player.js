@@ -32,7 +32,7 @@ class RoomView extends Component {
     return <View>
               <Player
                   source={{
-                        uri:this.props.item.play.ORIGIN,
+                        uri:this.props.route.params.url,
                         //uri:"rtmp://pili-live-rtmp.pilitest.qiniucdn.com/pilitest/buhe",
                         //controller: true,
                         timeout: 10 * 1000,

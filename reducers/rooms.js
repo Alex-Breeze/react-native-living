@@ -30,7 +30,8 @@ export default function reducer(state = initialState, action = {}) {
       let rooms = state.rooms;
       return {
         ...state,
-        data: [...rooms,action.room]
+        data: [...rooms,action.room],
+        currentRoom:action.room
       };
 
     case DELETE_ROOM_DATA:
