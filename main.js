@@ -8,7 +8,7 @@ import {
     StyleSheet,
     Text,
     View,
-    AppRegistry,
+    Image,
     Dimensions,
     StatusBar
 } from 'react-native';
@@ -24,6 +24,8 @@ import Router from './screens';
 
 import { connect } from 'react-redux';
 
+import user from './img/user.png';
+
 // Treat the DrawerNavigationLayout route like any other route -- you may want to set
 // it as the intiial route for a top-level StackNavigation
 
@@ -36,11 +38,12 @@ class DrawerNavigationLayout extends React.Component {
               initialItem='home'
               drawerWidth={200}
               renderHeader={this._renderHeader}
+              drawerStyle={{backgroundColor:'black'}}
               >
             <DrawerNavigationItem
                 id='home'
-                selectedStyle={styles.selectedItemStyle}
-                renderTitle={isSelected => this._renderTitle('Home', isSelected)}
+                //selectedStyle={styles.selectedItemStyle}
+                renderTitle={()=><View style={{flex:1,alignItems:'center'}} ><Text style={styles.titleText} >直播</Text></View>}
                 >
               <StackNavigation
                   id='home'
@@ -50,8 +53,8 @@ class DrawerNavigationLayout extends React.Component {
 
             <DrawerNavigationItem
                 id='about'
-                selectedStyle={styles.selectedItemStyle}
-                renderTitle={isSelected => this._renderTitle('About', isSelected)}
+                //selectedStyle={styles.selectedItemStyle}
+                renderTitle={()=><View style={{flex:1,alignItems:'center'}}><Text style={styles.titleText}>设置</Text></View>}
                 >
               <StackNavigation
                   id='about'
@@ -67,6 +70,8 @@ class DrawerNavigationLayout extends React.Component {
   _renderHeader = () => {
     return (
         <View style={styles.header}>
+          <Image source={user} style={{marginTop:39 + 44,marginBottom:13}}/>
+          <Text style={styles.title}>Linda</Text>
         </View>
     );
   };
@@ -84,19 +89,19 @@ class DrawerNavigationLayout extends React.Component {
 
 const styles = StyleSheet.create({
   header: {
-    height: 20
+    height: 276,
+    flex:1,
+    alignItems:'center'
   },
 
-  selectedItemStyle: {
-    backgroundColor: 'blue'
-  },
 
   titleText: {
-    fontWeight: 'bold'
-  },
-
-  selectedTitleText: {
-    color: 'white'
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 16,
+    marginBottom: 5,
+    marginTop:5,
+    color:'white',
   }
 });
 
