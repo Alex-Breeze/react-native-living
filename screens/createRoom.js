@@ -13,7 +13,6 @@ import {
     KeyboardAvoidingView
 } from 'react-native';
 
-import cover_4 from '../img/4.jpg';
 import close from '../img/close.png';
 
 var {width,height} = Dimensions.get('window');
