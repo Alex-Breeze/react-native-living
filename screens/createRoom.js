@@ -51,8 +51,11 @@ class CreateRoom extends Component {
   }
 
   createRoom(){
-    this.props.createRoom(this.state.roomName);
-    this.start();
+    this.props.createRoom(this.state.roomName)
+        .then(()=>{
+          this.start();
+        });
+
   }
 
   onEnterRoomName(roomName){

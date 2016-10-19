@@ -31,7 +31,7 @@ export function createRoom(room) {
 
     dispatch({type:'PRE_CREATE_ROOM',title:room,body:JSON.stringify({title:room})});
 
-    fetch(BASE_URL + '/pilipili', {
+    return fetch(BASE_URL + '/pilipili', {
       method: "POST",
       headers: {
         'Accept': 'application/json',
