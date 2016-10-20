@@ -70,18 +70,18 @@ class CreateRoom extends Component {
               <Image source={close} />
             </TouchableOpacity>
           </View>
-          <KeyboardAvoidingView behavior="height">
             <TextInput
-                style={{marginTop:80,marginLeft:50,marginRight:50,backgroundColor:'transparent'}}
+                style={{marginTop:60,marginLeft:50,marginRight:50,backgroundColor:'transparent'}}
                 placeholder={'room name'}
                 onChangeText={this.onEnterRoomName}
                 value={this.state.roomName}
+                autoFocus={true}
                 />
 
             <TouchableOpacity onPress={this.createRoom}>
               <View
                   style={{
-                  marginTop:100,marginLeft:60,marginRight:60,height:44,backgroundColor:'rgba(237, 87, 87, 1)',
+                  marginTop:80,marginLeft:60,marginRight:60,height:44,backgroundColor:'rgba(237, 87, 87, 1)',
                   justifyContent:'center',alignItems:'center',
                   borderRadius:10
                   }}
@@ -89,7 +89,6 @@ class CreateRoom extends Component {
                 <Text style={{color:'white'}}>Begin Broadcasting</Text>
               </View>
             </TouchableOpacity>
-          </KeyboardAvoidingView>
         </View>
     );
   }

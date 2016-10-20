@@ -24,15 +24,44 @@ import Pili, {
 
 import { connect } from 'react-redux';
 
+import Popup from '../widgets/popup';
+
 import toggle_camera from '../img/toggle-camera.png';
 import audience from '../img/audience.png';
 import face from '../img/face.png';
 import set_icon from '../img/set-icon.png';
 import share from '../img/share.png';
 
+import beauty from '../img/beauty.png';
+import beauty_red from '../img/beauty-red.png';
+
+import mirror from '../img/mirror.png';
+import mirror_red from '../img/mirror-red.png';
+
 var zoom = 1;
 
+class PopupItem extends Component {
+  render() {
+    let icon = this.props.selected ? this.props.selectedIcon : this.props.icon;
+    let label = this.props.selected
+        ? <Text style={{color:'red',marginLeft:10}}>{this.props.text}</Text>
+        : <Text style={{marginLeft:10}}>{this.props.text}</Text>;
+    return (
+        <TouchableOpacity onPress={this.props.onPress}>
+          <View style={{flexDirection:'row',padding:20}}>
+            {icon}
+            {label}
+          </View>
+        </TouchableOpacity>
+
+    )
+  }
+}
+
 class StreamingView extends Component {
+
+  _set_icon_size = {}
+
   constructor() {
     super();
     this.state = {
@@ -41,10 +70,15 @@ class StreamingView extends Component {
       text: '...',
       focus: true,
       zoom: 1,
-      camera: 'front'
+      camera: 'front',
+      beauty: false,
+      mirror: false
     };
     this.stop = this.stop.bind(this);
     this.toggleCamera = this.toggleCamera.bind(this);
+    this.measureSetIcon = this.measureSetIcon.bind(this);
+    this.toggleBeauty = this.toggleBeauty.bind(this);
+    this.toggleMirror = this.toggleMirror.bind(this);
   }
 
   stop() {
@@ -58,6 +92,29 @@ class StreamingView extends Component {
       this.setState({camera: 'front'});
     }
 
+  }
+
+  measureSetIcon() {
+    var self = this;
+    this.refs.set_icon_button.measure((fx, fy, width, height, px, py) => {
+      self.popupDialog.measure((fx, fy, popup_width, popup_height) => {
+        let x = px - (popup_width / 2);
+        let y = py - popup_height - 20;
+        self._set_icon_size = {x: x, y: y};
+      })
+    })
+  }
+
+  toggleBeauty(){
+    this.setState({beauty:!this.state.beauty});
+  }
+
+  toggleMirror(){
+    this.setState({mirror:!this.state.mirror});
+  }
+
+  componentDidMount() {
+    setTimeout(this.measureSetIcon, 1000);
   }
 
   render() {
@@ -128,11 +185,36 @@ class StreamingView extends Component {
               <Text style={{color:'white',backgroundColor:'transparent'}}>123</Text>
             </View>
             <View style={{flexDirection:'row'}}>
-              <Image source={face}/>
-              <Image source={set_icon}/>
-              <Image source={share}/>
+              <TouchableOpacity style={styles.button}><Image source={face}/></TouchableOpacity>
+              <TouchableOpacity
+                  style={styles.button}
+                  ref='set_icon_button'
+                  onPress={()=>{this.popupDialog.show(this._set_icon_size.x,this._set_icon_size.y)}}
+                  >
+                <Image source={set_icon}/>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button}><Image source={share}/></TouchableOpacity>
             </View>
           </View>
+          <Popup
+              ref={(popupDialog) => { this.popupDialog = popupDialog; }}
+              >
+            <PopupItem
+                selected={this.state.beauty}
+                selectedIcon={<Image source={beauty_red}/>}
+                icon={<Image source={beauty}/>}
+                text='美颜'
+                onPress={this.toggleBeauty}
+                />
+            <PopupItem
+                selected={this.state.mirror}
+                selectedIcon={<Image source={mirror_red}/>}
+                icon={<Image source={mirror}/>}
+                text='镜像'
+                onPress={this.toggleMirror}
+                />
+
+          </Popup>
         </View>
     );
   }
@@ -169,5 +251,12 @@ class StreamingView extends Component {
     });
   }
 }
+
+const styles = StyleSheet.create({
+  button: {
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+});
 
 export default connect(({rooms}) => ({rooms}))(StreamingView);
