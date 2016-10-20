@@ -10,7 +10,8 @@ import {
     View,
     Image,
     Dimensions,
-    StatusBar
+    StatusBar,
+    Alert
 } from 'react-native';
 
 import {
@@ -24,12 +25,24 @@ import Router from './screens';
 
 import { connect } from 'react-redux';
 
+import * as wechat from 'react-native-wechat';
+
 import user from './img/user.png';
 
 // Treat the DrawerNavigationLayout route like any other route -- you may want to set
 // it as the intiial route for a top-level StackNavigation
+const WE_ID = 'wx34bceb3237aba44e';
 
 class DrawerNavigationLayout extends React.Component {
+
+  componentDidMount() {
+    wechat.registerApp(WE_ID);
+    //wechat.sendAuthRequest('snsapi_userinfo');
+    //wechat.addListener('SendAuth.Resp', function (resp) {
+    //  Alert.alert('wechat login successfull,resp id is ' + JSON.stringify(resp));
+    //});
+  }
+
   render() {
     return (
         <NavigationProvider router={Router}>
