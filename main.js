@@ -33,6 +33,7 @@ class DrawerNavigationLayout extends React.Component {
   render() {
     return (
         <NavigationProvider router={Router}>
+          <StatusBar hidden={true}/>
           <DrawerNavigation
               id='main'
               initialItem='home'

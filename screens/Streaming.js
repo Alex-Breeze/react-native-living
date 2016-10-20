@@ -26,6 +26,8 @@ import { connect } from 'react-redux';
 
 import Popup from '../widgets/popup';
 
+import {EmojiOverlay} from 'react-native-emoji-picker';
+
 import toggle_camera from '../img/toggle-camera.png';
 import audience from '../img/audience.png';
 import face from '../img/face.png';
@@ -72,13 +74,15 @@ class StreamingView extends Component {
       zoom: 1,
       camera: 'front',
       beauty: false,
-      mirror: false
+      mirror: false,
+      showPicker: false
     };
     this.stop = this.stop.bind(this);
     this.toggleCamera = this.toggleCamera.bind(this);
     this.measureSetIcon = this.measureSetIcon.bind(this);
     this.toggleBeauty = this.toggleBeauty.bind(this);
     this.toggleMirror = this.toggleMirror.bind(this);
+    this.emojiSelected = this.emojiSelected.bind(this);
   }
 
   stop() {
@@ -105,12 +109,16 @@ class StreamingView extends Component {
     })
   }
 
-  toggleBeauty(){
-    this.setState({beauty:!this.state.beauty});
+  toggleBeauty() {
+    this.setState({beauty: !this.state.beauty});
   }
 
-  toggleMirror(){
-    this.setState({mirror:!this.state.mirror});
+  toggleMirror() {
+    this.setState({mirror: !this.state.mirror});
+  }
+
+  emojiSelected(emoji) {
+
   }
 
   componentDidMount() {
@@ -185,7 +193,9 @@ class StreamingView extends Component {
               <Text style={{color:'white',backgroundColor:'transparent'}}>123</Text>
             </View>
             <View style={{flexDirection:'row'}}>
-              <TouchableOpacity style={styles.button}><Image source={face}/></TouchableOpacity>
+              <TouchableOpacity style={styles.button}
+                                onPress={()=>{this.setState({showPicker:!this.state.showPicker})}}
+                  ><Image source={face}/></TouchableOpacity>
               <TouchableOpacity
                   style={styles.button}
                   ref='set_icon_button'
@@ -193,7 +203,8 @@ class StreamingView extends Component {
                   >
                 <Image source={set_icon}/>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button}><Image source={share}/></TouchableOpacity>
+              <TouchableOpacity style={styles.button}><Image
+                  source={share}/></TouchableOpacity>
             </View>
           </View>
           <Popup
@@ -215,6 +226,18 @@ class StreamingView extends Component {
                 />
 
           </Popup>
+          <EmojiOverlay
+              style={{
+                  top:200,
+                  height: 400,
+                  backgroundColor: '#f4f4f4'
+                }}
+              horizontal={true}
+              visible={this.state.showPicker}
+              onEmojiSelected={this.emojiSelected.bind(this)}
+              onTapOutside={() => this.setState({showPicker: false})}
+              hideClearButton={true}
+              />
         </View>
     );
   }
