@@ -10,7 +10,8 @@ import {
     Alert,
     Image,
     Dimensions,
-    KeyboardAvoidingView
+    //KeyboardAvoidingView,
+    Keyboard
 } from 'react-native';
 
 import close from '../img/close.png';
@@ -33,7 +34,7 @@ class CreateRoom extends Component {
   constructor() {
     super();
     this.state = {
-      roomName:''
+      roomName: ''
     }
     this._pop = this._pop.bind(this);
     this.start = this.start.bind(this);
@@ -45,50 +46,69 @@ class CreateRoom extends Component {
     this.props.navigator.pop();
   }
 
-  start(){
+  start() {
     this.props.navigator.push(Router.getRoute('streaming'));
   }
 
-  createRoom(){
+  createRoom() {
+    Keyboard.dismiss();
     this.props.createRoom(this.state.roomName)
-        .then(()=>{
+        .then(()=> {
           this.start();
         });
 
   }
 
-  onEnterRoomName(roomName){
-    this.setState({roomName:roomName});
+  onEnterRoomName(roomName) {
+    this.setState({roomName: roomName});
   }
 
   render() {
     var self = this;
     return (
         <View style={{flex: 1,backgroundColor:'rgba(0,0,0,0.9)'}}>
-          <View style={{height:60,backgroundColor:'transparent',alignItems:'flex-end',justifyContent:'center',marginRight:10}}>
+          <View
+              style={{
+                height:60,
+                backgroundColor:'transparent',
+                alignItems:'flex-end',
+                justifyContent:'center',
+                marginRight:10
+                }}>
             <TouchableOpacity onPress={self._pop} style={{height:40,width:40}}>
-              <Image source={close} />
+              <Image source={close}/>
             </TouchableOpacity>
           </View>
-            <TextInput
-                style={{marginTop:60,marginLeft:50,marginRight:50,backgroundColor:'transparent'}}
-                placeholder={'room name'}
-                onChangeText={this.onEnterRoomName}
-                value={this.state.roomName}
-                autoFocus={true}
-                />
+          <TextInput
+              style={{
+                marginTop:60,
+                marginLeft:50,
+                marginRight:50,
+                backgroundColor:'transparent'
+                }}
+              placeholder={'room name'}
+              onChangeText={this.onEnterRoomName}
+              value={this.state.roomName}
+              autoFocus={true}
+              blurOnSubmit={true}
+              />
 
-            <TouchableOpacity onPress={this.createRoom}>
-              <View
-                  style={{
-                  marginTop:80,marginLeft:60,marginRight:60,height:44,backgroundColor:'rgba(237, 87, 87, 1)',
-                  justifyContent:'center',alignItems:'center',
+          <TouchableOpacity onPress={this.createRoom}>
+            <View
+                style={{
+                  marginTop:80,
+                  marginLeft:60,
+                  marginRight:60,
+                  height:44,
+                  backgroundColor:'rgba(237, 87, 87, 1)',
+                  justifyContent:'center',
+                  alignItems:'center',
                   borderRadius:10
                   }}
-                  >
-                <Text style={{color:'white'}}>Begin Broadcasting</Text>
-              </View>
-            </TouchableOpacity>
+                >
+              <Text style={{color:'white'}}>Begin Broadcasting</Text>
+            </View>
+          </TouchableOpacity>
         </View>
     );
   }
@@ -117,4 +137,4 @@ function bindAction(dispatch) {
   }
 }
 
-export default connect(null,bindAction)(CreateRoom);
+export default connect(null, bindAction)(CreateRoom);
