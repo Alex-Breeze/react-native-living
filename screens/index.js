@@ -10,7 +10,7 @@ import {
 import Rooms from './Rooms';
 import CreateRoom from './createRoom';
 import AboutScreen from './AboutScreen';
-import Streaming from './Streaming';
+import Streaming from './AudioStreaming';
 import Player from './Player';
 export default Router = createRouter(() => ({
   home: () => Rooms,
